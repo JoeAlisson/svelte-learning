@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
 
-/** @type {import('./$types').PageLoad} */
 interface Params {
   slug: string;
 }
@@ -10,6 +9,7 @@ interface Result {
   content: string;
 }
 
+/** @type {import('./$types').PageLoad} */
 export function load( { params }: { params: Params }) : Result  {
   if (params.slug === 'hello-world') {
     return {
