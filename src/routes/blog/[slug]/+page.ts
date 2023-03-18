@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 
+/** @type {import('./$types').PageLoad} */
 interface Params {
   slug: string;
 }
