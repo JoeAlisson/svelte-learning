@@ -1,6 +1,6 @@
 <script>
-  /** @type {import('./$types').LayoutData} */
-  export let data;
+  import { LayoutData } from './$types';
+  export let data: LayoutData;
 </script>
 
 <h1>Settings</h1>

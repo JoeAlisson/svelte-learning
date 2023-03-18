@@ -1,7 +1,5 @@
 import { error } from '@sveltejs/kit';
-interface Params {
-  slug: string;
-}
+import type {PageServerLoad } from "./$types";
 
 interface Post {
   title: string;
@@ -15,11 +13,10 @@ async function getPostFromDatabase(slug: string) : Promise<Post> {
   }
 }
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load( { params }: { params: Params }) : Promise<Post>  {
+export const load = ( async  ({ params }) => {
   const post = await getPostFromDatabase(params.slug);
   if(post) {
     return post;
   }
   throw error(404, 'Not found');
-}
+}) satisfies PageServerLoad;
