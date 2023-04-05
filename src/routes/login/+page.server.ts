@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types";
 
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import { db } from "$lib/server/db";
 
 export const load = (async ({ cookies }) => {
@@ -15,7 +15,7 @@ export const load = (async ({ cookies }) => {
 
 export const actions = {
 
-  login: async ({ cookies, request }) => {
+  login: async ({ cookies, request, url }) => {
     const data = await request.formData();
     const email = data.get("email")?.toString();
     const password = data.get("password");
@@ -31,6 +31,12 @@ export const actions = {
     }
 
     cookies.set("sessionid", await db.createSession(user));
+
+    const redirectTo = url.searchParams.get("redirectTo");
+    if (redirectTo) {
+      throw redirect(303, redirectTo);
+    }
+
     return { success: true };
   },
 
