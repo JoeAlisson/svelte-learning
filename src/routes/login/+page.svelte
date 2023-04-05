@@ -9,9 +9,11 @@
   <p> Successfully logged in! Welcome back, {data.user.name}</p>
 {:else}
 <form method="POST" action="?/login">
+  {#if form?.missing}<p class="error">The email field is required</p>{/if}
+  {#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}
   <label>
     Email
-    <input type="email" name="email" />
+    <input type="email" name="email" value={form?.email ?? ''}/>
   </label>
   <label>
     Password
