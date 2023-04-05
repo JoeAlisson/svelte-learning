@@ -8,6 +8,4 @@
   <a href="/settings">Settings</a>
 </nav>
 
-User: {data.user.name} ({data.user.sessionId})
-
 <slot></slot>
