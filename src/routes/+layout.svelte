@@ -1,7 +1,3 @@
-<script lang="ts">
-  export let data;
-</script>
-
 <nav>
   <a href="/">Home</a>
   <a href="/about">About</a>
