@@ -1,4 +1,4 @@
-<form method="POST">
+<form method="POST" action="?/register">
   <label>
     Email
     <input type="email" name="email" />
