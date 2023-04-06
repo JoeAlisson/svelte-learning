@@ -6,11 +6,12 @@
 </script>
 
 {#if form?.success}
-  <p> Successfully logged in! Welcome back, {data.user.name}</p>
+  <p> Successfully logged in! Welcome back, {data.user.email}</p>
 {:else}
 <form method="POST" action="?/login">
   {#if form?.missing}<p class="error">The email field is required</p>{/if}
   {#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}
+  {#if form?.registered}<p>Registration Successful</p>{/if}
   <label>
     Email
     <input type="email" name="email" value={form?.email ?? ''}/>

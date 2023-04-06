@@ -1,5 +1,4 @@
 interface User {
-  name: string;
   email: string;
   password: string;
 }
@@ -8,6 +7,7 @@ interface UserStore {
   getUserFromSession: (sessionid: string) => Promise<User | undefined>;
   getUser: (email: string) => Promise<User | undefined>;
   createSession: (user: User) => Promise<string | undefined>;
+  createUser: (email: string, password: string) => void;
 }
 
 class UserStoreImpl implements UserStore {
@@ -27,6 +27,10 @@ class UserStoreImpl implements UserStore {
     this.usersBySession.set(sessionId, user);
     return sessionId;
   }
+
+  createUser(email: string, password: string) {
+    this.users.set(email, { email, password })
+  }
 }
 
 const userStore = new UserStoreImpl();
@@ -42,5 +46,9 @@ export const db = {
 
   createSession: async (user: User) => {
     return userStore.createSession(user);
+  },
+
+  createUser: async (email: string, password: string) => {
+    return userStore.createUser(email, password);
   }
 };

@@ -18,7 +18,7 @@ export const actions = {
   login: async ({ cookies, request, url }) => {
     const data = await request.formData();
     const email = data.get("email")?.toString();
-    const password = data.get("password");
+    const password = data.get("password")?.toString();
 
     if (!email) {
       return fail(400, { email, missing: true });
@@ -40,7 +40,22 @@ export const actions = {
     return { success: true };
   },
 
-  register: async (event) => {
-    // TODO register the user
+  register: async ({request}) => {
+    const data = await request.formData();
+    const email = data.get("email")?.toString();
+    const password = data.get("password")?.toString();
+
+    if (!email) {
+      return fail(400, { email, missing: true });
+    }
+
+    if(!password) {
+      return fail(400, { password, missingPassword: true });
+    }
+
+
+    db.createUser(email, password);
+    return { registered: true };
+
   }
 } satisfies Actions;
